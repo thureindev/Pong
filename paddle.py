@@ -7,6 +7,7 @@ class Paddle(Turtle):
         super().__init__()
         self.penup()
         self.shape('square')
+        # because shpesize args is scaling int
         self.shapesize(round(gs.PADDLE_HEIGHT / gs.BLOCK_SIZE), 1, 1)
         self.color(gs.PADDLE_COLOR)
         if is_on_left_side:
@@ -19,10 +20,10 @@ class Paddle(Turtle):
         move_distance = self.ycor() + gs.PADDLE_HALF_HEIGHT + gs.PADDLE_SPEED
         # snap movement if upper wall is hit
         if move_distance < gs.HEIGHT_LIMIT:
-            self.sety(move_distance)
+            self.sety(self.ycor() + gs.PADDLE_SPEED)
 
     def move_down(self):
         move_distance = self.ycor() - gs.PADDLE_HALF_HEIGHT - gs.PADDLE_SPEED
         # snap movement if upper wall is hit
         if move_distance > -gs.HEIGHT_LIMIT:
-            self.sety(move_distance)
+            self.sety(self.ycor() - gs.PADDLE_SPEED)
