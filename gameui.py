@@ -23,9 +23,9 @@ class GameUI(Turtle):
         self.score_ui.penup()
         self.score_ui.color(gs.FONT_COLOR)
 
-        self.update_scores(0, 0)
+        self.display_updated_scores(0, 0)
 
-    def update_scores(self, p1_score, p2_score):
+    def display_updated_scores(self, p1_score, p2_score):
         self.score_ui.clear()
         self.score_ui.color(gs.FONT_COLOR)
 

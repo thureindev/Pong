@@ -35,7 +35,7 @@ def main():
         player_1.reset_score()
         player_2.reset_score()
 
-        gui.update_scores(0, 0)
+        gui.display_updated_scores(0, 0)
         ball.reset_pos()
 
         while not game.is_gameover:
@@ -54,7 +54,7 @@ def main():
                         # check if paddle missed and other player scored
                         if ball.hit_score_line(player_2.score_line_xcor):
                             player_2.add_score()
-                            gui.update_scores(player_1.score, player_2.score)
+                            gui.display_updated_scores(player_1.score, player_2.score)
                             gui.display_scored_player(player_2)
                             screen.update()
                             if player_2.score >= match_winning_score:
@@ -73,7 +73,7 @@ def main():
                         # check if paddle missed and other player scored
                         if ball.hit_score_line(player_1.score_line_xcor):
                             player_1.add_score()
-                            gui.update_scores(player_1.score, player_2.score)
+                            gui.display_updated_scores(player_1.score, player_2.score)
                             gui.display_scored_player(player_1)
                             screen.update()
                             if player_1.score >= match_winning_score:
@@ -87,10 +87,6 @@ def main():
 
                 time.sleep(gs.CLOCK_TICK)
 
-            # else:
-            #     gui.display_game_paused()
-            #     gui.display_gamestart_key(action_word="to continue")
-
             screen.update()
 
     # to start a new game
@@ -103,7 +99,12 @@ def main():
         if game.is_gameover:
             game_start()
         else:
-            game.toggle_pause()
+            is_paused = game.toggle_pause()
+            if is_paused:
+                gui.display_game_paused()
+                gui.display_gamestart_key(action_word="to continue")
+            else:
+                gui.display_updated_scores(player_1.score, player_2.score)
 
     screen.onkeypress(key="space", fun=check_pause_and_game_restart)
     # while True:
